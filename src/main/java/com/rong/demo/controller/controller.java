@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @ Author ：rongyong
@@ -76,5 +80,22 @@ public class controller
             cnName = defaultName;
         }
         return cnName;
+    }
+
+    public static void main(String[] args)
+    {
+        String data = "#在抖音，记录美好生活#这大概就是冰雪美人吧…… czxhttp://v.douyin.com/eUWYth/ czxczx复制此链接，打开【抖音短视频】，直接观看视频！";
+
+        String regex = "(((https|http)?://)?([a-z0-9]+[.])|(www.))"
+                + "\\w+[.|\\/]([a-z0-9]{0,})?[[.]([a-z0-9]{0,})]+((/[\\S&&[^,;\u4E00-\u9FA5]]+)+)?([.][a-z0-9]{0,}+|/?)";
+
+        final List<String> list = new ArrayList<String>();
+        final Pattern pa = Pattern.compile(regex, Pattern.DOTALL);
+        final Matcher ma = pa.matcher(data);
+        while (ma.find())
+        {
+            list.add(ma.group());
+        }
+        System.out.println(list.toString());
     }
 }
